@@ -3,17 +3,6 @@ from DiGraph import DiGraph
 
 
 class TestDiGraph(unittest.TestCase):
-    """Test Class for DiGraph
-    List of all the test in this Test class:
-    - test_v_size - adding nodes to the graph and checks if graph.v_size() returns the correct number of nodes in the graph
-    - test_e_size - connect nodes in the graph and checks if graph.edge_size returns the correct number of edges in the graph
-    - test_get_all_v - checks if graph.get_all_v returns a dictionary of all nodes in the graph
-    - test_all_in_edges_of_node - checks that all_in_edges_of_node method returns all edges that come into the current node
-    - test_all_out_edges_of_node - checks that all_out_edges_of_node method returns all edges that comes out of current node
-    - test_get_mc - checks that number of operations that are made on the graph equals to mc of the graph
-    - test_add_remove_node - checks if a node is being added or removed from the graph successfully
-    - test_add_remove_edge - checks if an edge is being added or removed from the graph successfully
-    """
 
     def test_v_size(self):
         graph = DiGraph()
@@ -43,8 +32,8 @@ class TestDiGraph(unittest.TestCase):
         self.assertEqual(graph.e_size(), 4)
         graph.add_edge(4, 4, 5)
         self.assertEqual(graph.e_size(), 4)
-        bool = graph.add_edge(8, 2, 1)  # 8 is not a node in the graph
-        self.assertFalse(bool)
+        bol = graph.add_edge(8, 2, 1)  # 8 is not a node in the graph
+        self.assertFalse(bol)
         self.assertEqual(graph.e_size(), 4)
         graph.remove_edge(1, 2)
         self.assertEqual(graph.e_size(), 3)
@@ -116,43 +105,43 @@ class TestDiGraph(unittest.TestCase):
         graph = DiGraph()
         for i in range(1, 5):
             graph.add_node(i)
-        bool = graph.add_node(1)
-        self.assertFalse(bool)
-        bool = graph.add_node(6)
-        self.assertTrue(bool)
+        bol = graph.add_node(1)
+        self.assertFalse(bol)
+        bol = graph.add_node(6)
+        self.assertTrue(bol)
         self.assertEqual(graph.v_size(), 5)
-        bool = graph.remove_node(1)
+        bol = graph.remove_node(1)
         self.assertEqual(graph.v_size(), 4)
-        self.assertTrue(bool)
-        bool = graph.remove_node(1)
+        self.assertTrue(bol)
+        bol = graph.remove_node(1)
         self.assertEqual(graph.v_size(), 4)
-        self.assertFalse(bool)
-        bool = graph.remove_node(5)
+        self.assertFalse(bol)
+        bol = graph.remove_node(5)
         self.assertEqual(graph.v_size(), 4)
-        self.assertFalse(bool)
+        self.assertFalse(bol)
 
     def test_add_remove_edge(self):
         graph = DiGraph()
         for i in range(1, 5):
             graph.add_node(i)
-        bool = graph.add_edge(1, 2, 2)
+        bol = graph.add_edge(1, 2, 2)
         self.assertEqual(graph.e_size(), 1)
         graph.add_edge(1, 4, 3)
         self.assertEqual(graph.e_size(), 2)
-        self.assertTrue(bool)
-        bool = graph.add_edge(6, 1, 30)
-        self.assertFalse(bool)
-        bool = graph.add_edge(1, 1, 2)
-        self.assertFalse(bool)
+        self.assertTrue(bol)
+        bol = graph.add_edge(6, 1, 30)
+        self.assertFalse(bol)
+        bol = graph.add_edge(1, 1, 2)
+        self.assertFalse(bol)
         self.assertEqual(graph.e_size(), 2)
-        bool = graph.remove_edge(1, 1)
-        self.assertFalse(bool)
+        bol = graph.remove_edge(1, 1)
+        self.assertFalse(bol)
         self.assertEqual(graph.e_size(), 2)
-        bool = graph.remove_edge(1, 2)
-        self.assertTrue(bool)
+        bol = graph.remove_edge(1, 2)
+        self.assertTrue(bol)
         self.assertEqual(graph.e_size(), 1)
-        bool = graph.remove_edge(1, 5)
-        self.assertFalse(bool)
+        bol = graph.remove_edge(1, 5)
+        self.assertFalse(bol)
         self.assertEqual(graph.e_size(), 1)
         expected_dict = {4: 3}
         self.assertEqual(graph.all_out_edges_of_node(1), expected_dict)

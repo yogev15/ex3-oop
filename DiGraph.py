@@ -4,18 +4,12 @@ from Node import Node
 
 class DiGraph(GraphInterface):
 
-    def __init__(self, nodeSize : int = 0 , edgeSize : int = 0, mc : int = 0 ):
-        """
-        constructor
-        :param nodeSize:
-        :param edgeSize:
-        :param mc:
-        """
+    def __init__(self, nodeSize: int = 0, edgeSize: int = 0, mc: int = 0):
+
         self.nodeSize = nodeSize
         self.edgeSize = edgeSize
         self.mc = mc
-        self.graphDict = {} #(node_id, node_data)
-
+        self.graphDict = {}  # (node_id, node_data)
 
     def v_size(self) -> int:
         return self.nodeSize
@@ -28,14 +22,12 @@ class DiGraph(GraphInterface):
 
     def all_in_edges_of_node(self, id1: int) -> dict:
         if self.graphDict.__contains__(id1):
-            a = self.graphDict.get(id1)
             return self.graphDict[id1].nodesIn
         else:
             return {}
 
     def all_out_edges_of_node(self, id1: int) -> dict:
         if self.graphDict.__contains__(id1):
-            a = self.graphDict.get(id1)
             return self.graphDict[id1].nodesOut
         else:
             return {}
@@ -44,7 +36,7 @@ class DiGraph(GraphInterface):
         return self.mc
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
-        if weight <=0 or id1==id2:
+        if weight <= 0 or id1 == id2:
             return False
         if self.graphDict.__contains__(id1) and self.graphDict.__contains__(id2):
             a = self.graphDict.get(id1)
@@ -54,10 +46,7 @@ class DiGraph(GraphInterface):
             return False
 
         if id2 in a.nodesOut:
-            a.nodesOut[id2] = weight
-            b.nodesIn[id1] = weight
-            self.mc += 1
-            return True
+            return False
 
         if a in self.graphDict.values() and b in self.graphDict.values():
             a.nodesOut[id2] = weight
@@ -65,7 +54,6 @@ class DiGraph(GraphInterface):
             self.edgeSize += 1
             self.mc += 1
             return True
-
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if self.graphDict.get(node_id):
@@ -91,21 +79,17 @@ class DiGraph(GraphInterface):
                 self.mc += 1
                 self.edgeSize -= 1
 
-
             self.graphDict.pop(node_id)
             self.mc += 1
             self.nodeSize -= 1
             return True
         return False
 
-
-    def toString (self):
-        return "v size is "+self.nodeSize+" , e size is "+self.edgeSize
-
+    #  def toString (self):
+    #    return "v size is " + self.nodeSize + " , e size is "+ self.edgeSize
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
         if self.graphDict.__contains__(node_id1) and self.graphDict.__contains__(node_id2) and node_id1 != node_id2:
-
             a = self.graphDict.get(node_id1)
             b = self.graphDict.get(node_id2)
             if a.nodesOut.__contains__(node_id2):
@@ -117,7 +101,16 @@ class DiGraph(GraphInterface):
 
         return False
 
-
-
-
-
+    def graph_toString(self):
+        dic = {}
+        nodes = []
+        edges = []
+        for key in self.graphDict.values():
+            nodes.append(key)
+            nodesOut = key.get_nodesOut
+            for dest in nodesOut.keys():
+                temp = {"src": key.key, "weight": nodesOut[dest], "dest": dest}
+                edges.append(temp)
+                dic["Edges"] = edges
+                dic["Nodes"] = nodes
+        return dic

@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import List
 from GraphAlgoInterface import GraphAlgoInterface
 from DiGraph import DiGraph
@@ -6,7 +7,7 @@ from GraphInterface import GraphInterface
 from Node import Node
 
 
-class GraphAlgo(GraphAlgoInterface):
+class GraphAlgo(GraphAlgoInterface, ABC):
 
     def __init__(self, graph: DiGraph = None):
         self.graph = graph
@@ -15,62 +16,46 @@ class GraphAlgo(GraphAlgoInterface):
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
-
-        return True
+        g = DiGraph()
+        try:
+            with open(file_name, "r") as f:
+                details = json.load(f)
+                graphDict = details.get("Nodes")
+                nodesOut = details.get("Edges")
+                for dic in graphDict:
+                    key = dic.get("id")
+                    pos = dic.get("location")
+                    g.add_node(key)
+                    g.add_node(key).set_pos(pos)
+                for dic in nodesOut:
+                    g.add_edge(dic.get("src"), dic.get("dest"), dic.get("w"))
+                    self.graph = g
+                    return True
+        except Exception as e:
+            print(e)
+            return False
 
     def save_to_json(self, file_name: str) -> bool:
-
-        return True
+        try:
+            with open(file_name, "w") as file:
+                json.dump(self.graph, default=lambda m: m.graph_toString, indent=4, fp=file)
+                return True
+        except IOError as e:
+            print("error")
+            return False
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
-        """
-        Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
-        @param id1: The start node id
-        @param id2: The end node id
-        @return: The distance of the path, a list of the nodes ids that the path goes through
-        Example:
-#      >>> from GraphAlgo import GraphAlgo
-#       >>> g_algo = GraphAlgo()
-#        >>> g_algo.addNode(0)
-#        >>> g_algo.addNode(1)
-#        >>> g_algo.addNode(2)
-#        >>> g_algo.addEdge(0,1,1)
-#        >>> g_algo.addEdge(1,2,4)
-#        >>> g_algo.shortestPath(0,1)
-#        (1, [0, 1])
-#        >>> g_algo.shortestPath(0,2)
-#        (5, [0, 1, 2])
-        Notes:
-        If there is no path between id1 and id2, or one of them dose not exist the function returns (float('inf'),[])
-        More info:
-        https://en.wikipedia.org/wiki/Dijkstra's_algorithm
-        """
+
         raise NotImplementedError
 
     def connected_component(self, id1: int) -> list:
-        """
-        Finds the Strongly Connected Component(SCC) that node id1 is a part of.
-        @param id1: The node id
-        @return: The list of nodes in the SCC
-        Notes:
-        If the graph is None or id1 is not in the graph, the function should return an empty list []
-        """
+
         raise NotImplementedError
 
     def connected_components(self) -> List[list]:
-        """
-        Finds all the Strongly Connected Component(SCC) in the graph.
-        @return: The list all SCC
-        Notes:
-        If the graph is None the function should return an empty list []
-        """
+
         raise NotImplementedError
 
     def plot_graph(self) -> None:
-        """
-        Plots the graph.
-        If the nodes have a position, the nodes will be placed there.
-        Otherwise, they will be placed in a random but elegant manner.
-        @return: None
-        """
+
         raise NotImplementedError
