@@ -127,3 +127,13 @@ class DiGraph(GraphInterface):
 
     def __repr__(self):
         return str(self.__dict__)
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__) is False:
+            return False
+        if self.v_size() != other.v_size() or self.e_size() != other.e_size():
+            return False
+        return self.get_all_v() == other.get_all_v()
+
+    def __str__(self):
+        return "Graph: vSize is "+self.v_size()+", eSize is "+self.e_size()+"."

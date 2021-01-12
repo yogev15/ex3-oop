@@ -3,17 +3,22 @@ import sys
 class Node:
 
     def __init__(self, key: int, tag: int = sys.maxsize, weight: int =0.0, color: str="white", 
-        nodesIn: dict={}, nodesOut: dict={}, position: tuple = None):
+        nodesIn: dict=None, nodesOut: dict=None, position: tuple = None):
         self.key = key
         self.tag = tag
         self.weight = weight
         self.color = color
-        self.nodesIn = nodesIn  # (key = int , value = weight)
-        self.nodesOut = nodesOut  # (key = int , value = weight)
-        self.position = position
 
-    def __eq__(self, o: object) -> bool:
-        return self.key == o.key
+        if nodesIn is None:
+            self.nodesIn = {}
+        else:
+            self.nodesIn = nodesIn  # (key = int , value = weight)
+        if nodesOut is None:
+            self.nodesOut = {}
+        else:
+            self.nodesOut = nodesOut  # (key = int , value = weight)
+
+        self.position = position
 
     def getKey(self) -> int:
         return self.key
@@ -47,3 +52,6 @@ class Node:
 
     def __repr__(self):
         return str(self.__dict__)
+
+    def __eq__(self, other) -> bool :
+        return self.key == other.key and self.position == other.position
