@@ -9,6 +9,7 @@ class DiGraph(GraphInterface):
         self.edgeSize = edgeSize
         self.mc = mc
         self.graphDict = {}  # (node_id, node_data)
+        hey
 
     def v_size(self) -> int:
         return self.nodeSize
