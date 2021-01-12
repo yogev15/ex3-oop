@@ -1,19 +1,34 @@
 class Node:
 
-    def __init__(self, key: int, tag: int = -1, pos=None):
+    def __init__(self, key: int, tag: int = -1, pos: tuple = None):
         self.key = key
         self.tag = tag
-        self.info = 'white'
+        self.weight = 0.0
+        self.color = "white"
         self.nodesIn = {}  # (key = int , value = weight)
         self.nodesOut = {}  # (key = int , value = weight)
-        self.pos = pos
+        self.position = pos
 
-        def node_toString(self) -> dict:
-            dic = {"id": self.key, "location": self.pos}
-            return dic
+    def __eq__(self, o: object) -> bool:
+        return self.key == o.key
 
-        def get_nodesOut(self) -> dict:
-            return self.nodesOut
+    def getKey(self) -> int:
+        return self.key
 
-        def set_pos(self, pos: list):
-            self.pos = pos
+    def getTag(self) -> int:
+        return self.tag
+
+    def setTag(self, tag):
+        self.tag = tag
+
+    def getPos(self) -> tuple:
+        return self.position
+
+    def setPos(self, pos):
+        self.position = pos
+
+    def getColor(self) -> str:
+        return self.color
+
+    def setColor(self, color):
+        self.color = color

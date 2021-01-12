@@ -5,7 +5,6 @@ from Node import Node
 class DiGraph(GraphInterface):
 
     def __init__(self, nodeSize: int = 0, edgeSize: int = 0, mc: int = 0):
-
         self.nodeSize = nodeSize
         self.edgeSize = edgeSize
         self.mc = mc
@@ -85,9 +84,6 @@ class DiGraph(GraphInterface):
             return True
         return False
 
-    #  def toString (self):
-    #    return "v size is " + self.nodeSize + " , e size is "+ self.edgeSize
-
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
         if self.graphDict.__contains__(node_id1) and self.graphDict.__contains__(node_id2) and node_id1 != node_id2:
             a = self.graphDict.get(node_id1)
@@ -114,3 +110,8 @@ class DiGraph(GraphInterface):
                 dic["Edges"] = edges
                 dic["Nodes"] = nodes
         return dic
+
+    def getNode(self, key):
+        if key in self.graphDict:
+            return self.graphDict[key]
+        return False
