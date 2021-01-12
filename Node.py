@@ -24,11 +24,20 @@ class Node:
     def getPos(self) -> tuple:
         return self.position
 
-    def setPos(self, pos):
-        self.position = pos
+    def setPos(self, p):
+        self.position = p
 
     def getColor(self) -> str:
         return self.color
 
-    def setColor(self, color):
-        self.color = color
+    def setColor(self, c):
+        self.color = c
+
+    def getWeight(self) -> float:
+        return self.weight
+
+    def setWeight(self, w):
+        self.weight = w
+
+    def repr_json(self):
+        return self.__dict__
