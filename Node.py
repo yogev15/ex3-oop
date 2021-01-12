@@ -1,13 +1,16 @@
+import sys
+
 class Node:
 
-    def __init__(self, key: int, tag: int = -1, pos: tuple = None):
+    def __init__(self, key: int, tag: int = sys.maxsize, weight: int =0.0, color: str="white", 
+        nodesIn: dict={}, nodesOut: dict={}, position: tuple = None):
         self.key = key
         self.tag = tag
-        self.weight = 0.0
-        self.color = "white"
-        self.nodesIn = {}  # (key = int , value = weight)
-        self.nodesOut = {}  # (key = int , value = weight)
-        self.position = pos
+        self.weight = weight
+        self.color = color
+        self.nodesIn = nodesIn  # (key = int , value = weight)
+        self.nodesOut = nodesOut  # (key = int , value = weight)
+        self.position = position
 
     def __eq__(self, o: object) -> bool:
         return self.key == o.key
@@ -41,3 +44,6 @@ class Node:
 
     def repr_json(self):
         return self.__dict__
+
+    def __repr__(self):
+        return str(self.__dict__)

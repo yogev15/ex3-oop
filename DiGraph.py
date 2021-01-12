@@ -123,4 +123,7 @@ class DiGraph(GraphInterface):
         self.nodeSize = json_dict["nodeSize"]
         self.edgeSize = json_dict["edgeSize"]
         self.mc = json_dict["mc"]
-        self.graphDict = {k: Node(key=v["key"], tag=v["tag"], pos=v["position"]) for (k, v) in json_dict["graphDict"].items()}
+        self.graphDict = {k: Node(**v) for (k, v) in json_dict["graphDict"].items()}
+
+    def __repr__(self):
+        return str(self.__dict__)
