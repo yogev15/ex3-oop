@@ -1,4 +1,5 @@
 import queue
+import sys
 from abc import ABC
 from typing import List
 from GraphAlgoInterface import GraphAlgoInterface
@@ -15,22 +16,14 @@ class ComplexEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 
-def dijkstra(graph, src):
-    if graph is None:
-        return
-    q = queue.PriorityQueue()
-    node = graph.getNode(src)
-    q.put(node)
-
-
-
 def reset(graph):
     nodes = graph.get_all_v()
     for i in nodes.keys():
         node = graph.getNode(i)
         node.weight = 0.0
-        node.tag = 0
+        node.tag = False
         node.color = "white"
+        node.parent = None
 
 
 class GraphAlgo(GraphAlgoInterface, ABC):
@@ -61,21 +54,22 @@ class GraphAlgo(GraphAlgoInterface, ABC):
             return 0, [id1]
 
         reset(self.graph)
-        dijkstra(self.graph, id1)
-        node = self.graph.getNode(id2)
-        if node.getWeight(id2) == 0:
+        self.dijkstra(id1)
+
+        dest = self.graph.getNode(id2)
+        if dest.getWeight() == 0:
             return -1, None
 
-        answer = []
-        key = id2
-
-        while key != -1:
-            answer.append(key)
-            key = path.get(key)
-
-        answer.reverse()
-        return node.getWeight, answer
-
+        path = list()
+        dis = 0
+        temp = self.graph.getNode(id1)
+        while not dest.__eq__(temp):
+            dis += dest.nodesIn[dest.getParent().getKey()]
+            path.append(dest.getKey())
+            dest = dest.getParent()
+        path.append(temp.getKey())
+        path.reverse()
+        return dis, path
 
     def connected_component(self, id1: int) -> list:
         raise NotImplementedError
@@ -85,3 +79,32 @@ class GraphAlgo(GraphAlgoInterface, ABC):
 
     def plot_graph(self) -> None:
         raise NotImplementedError
+
+    def dijkstra(self, src):
+
+        q = queue.PriorityQueue()
+        node = self.graph.getNode(src)
+        node.setTag(True)
+        q.put(node)
+
+        while not q.empty():
+            node = q.get()
+            if node.getColor() == "white":
+                node.setColor("grey")
+                dic = self.graph.all_out_edges_of_node(node.getKey())
+                for k in dic:
+                    temp = self.graph.getNode(k)
+                    if temp.getWeight() == 0 and src != k:
+                        temp.setWeight(node.getWeight() + dic[k])
+                        temp.setParent(node)
+                    else:
+                        w = dic[k] + node.getWeight()
+                        if w < temp.getWeight():
+                            temp.setWeight(w)
+                            temp.setParent(node)
+
+                    if temp.getTag() is False:
+                        temp.setTag(True)
+                        q.put(temp)
+            node.setColor("black")
+

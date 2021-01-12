@@ -1,14 +1,11 @@
-import sys
 
 class Node:
-
-    def __init__(self, key: int, tag: int = sys.maxsize, weight: int =0.0, color: str="white", 
-        nodesIn: dict=None, nodesOut: dict=None, position: tuple = None):
+    def __init__(self, key: int, tag: bool = False, weight: int = 0.0, color: str = "white",
+                 nodesIn: dict = None, nodesOut: dict = None, position: tuple = None, parent=None):
         self.key = key
         self.tag = tag
         self.weight = weight
         self.color = color
-
         if nodesIn is None:
             self.nodesIn = {}
         else:
@@ -17,13 +14,16 @@ class Node:
             self.nodesOut = {}
         else:
             self.nodesOut = nodesOut  # (key = int , value = weight)
-
         self.position = position
+        self.parent = parent
+
+    def getNodesOut(self) -> dict:
+        return self.nodesOut
 
     def getKey(self) -> int:
         return self.key
 
-    def getTag(self) -> int:
+    def getTag(self) -> bool:
         return self.tag
 
     def setTag(self, tag):
@@ -50,8 +50,19 @@ class Node:
     def repr_json(self):
         return self.__dict__
 
+    def getParent(self):
+        return self.parent
+
+    def setParent(self, p):
+        self.parent = p
+
     def __repr__(self):
         return str(self.__dict__)
 
-    def __eq__(self, other) -> bool :
+    def __eq__(self, other) -> bool:
         return self.key == other.key and self.position == other.position
+
+    def __lt__(self, other):
+        p = (self.weight , self.key)
+        h = (other.getWeight(), other.getKey())
+        return p < h

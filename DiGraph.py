@@ -136,4 +136,4 @@ class DiGraph(GraphInterface):
         return self.get_all_v() == other.get_all_v()
 
     def __str__(self):
-        return "Graph: vSize is "+self.v_size()+", eSize is "+self.e_size()+"."
+        return "Graph: vSize is " + self.v_size() + ", eSize is " + self.e_size() + "."
