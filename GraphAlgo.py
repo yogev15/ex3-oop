@@ -1,9 +1,13 @@
+import math
 import queue
-from abc import ABC
+import random
 from typing import List
-from GraphAlgoInterface import GraphAlgoInterface
+
 from DiGraph import DiGraph
+from GraphAlgoInterface import GraphAlgoInterface
 import json
+import matplotlib.pyplot as plt
+
 from GraphInterface import GraphInterface
 
 
@@ -59,7 +63,7 @@ def dfs(key: int, graph: DiGraph) -> list:
     return keys
 
 
-class GraphAlgo(GraphAlgoInterface, ABC):
+class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self, graph: DiGraph = None):
         self.graph = graph
@@ -183,7 +187,80 @@ class GraphAlgo(GraphAlgoInterface, ABC):
         return myList
 
     def plot_graph(self) -> None:
-        return None
+        """
+        Plots the graph.
+        If the nodes have a position, the nodes will be placed there.
+        Otherwise, they will be placed in a random but elegant manner (by using generate_locations method).
+        @return: None.
+        """
+        XV = []
+        YV = []
+        graph = self.get_graph()
+        sum = 10 * graph.v_size()
+        nodes = graph.get_all_v().items()
+
+        max_x = 0
+        max_y = 0
+        min_x = math.inf
+        min_y = math.inf
+        text = []
+        for node in nodes:
+            if node[1].getPos() is None:
+                self.__generate_locations()
+            node_x = float(node[1].getPos().split(',')[0])
+            node_y = float(node[1].getPos().split(',')[1])
+            if node_x > max_x:
+                max_x = node_x
+            if node_y > max_y:
+                max_y = node_y
+            if node_x < min_x:
+                min_x = node_x
+            if node_y < min_y:
+                min_y = node_y
+        frame_x = max_x - min_x
+        frame_y = max_y - min_y
+        rad = 1 / 100 * frame_y
+        for node in nodes:
+            node_x = float(node[1].getPos().split(',')[0])
+            node_y = float(node[1].getPos().split(',')[1])
+            XV.append(node_x)
+            YV.append(node_y)
+            text.append([node_x + rad, node_y + rad, node[1].getKey()])
+            for edge in graph.all_out_edges_of_node(node[0]):
+                dest = graph.get_all_v()[edge]
+                dest_x = float(dest.getPos().split(',')[0])
+                dest_y = float(dest.getPos().split(',')[1])
+                dx = dest_x - node_x
+                dy = dest_y - node_y
+                line_w = 0.0002 * frame_x
+                if line_w > 0.2 * frame_y:
+                    line_w = 0.2 * frame_y
+
+                plt.arrow(node_x, node_y, dx, dy, width=line_w, length_includes_head=True, head_width=30 * line_w,
+                          head_length=75 * line_w, color='k')
+
+        # plt.text()
+        for tex in text:
+            plt.text(tex[0], tex[1], tex[2], color='b')
+
+        plt.plot(XV, YV, 'o', color='r')
+        plt.grid()
+        plt.title("Graph")
+        plt.xlabel("x")
+        plt.ylabel("y")
+        plt.show()
+
+    def __generate_locations(self):
+        sum = self.get_graph().v_size() + 10
+        counter = 1
+        graph = self.get_graph()
+        for node in graph.get_all_v():
+            x = counter / sum
+            y = random.random()
+            z = 0
+            pos = str(x) + ',' + str(y) + ',' + str(z)
+            dic = graph.get_all_v()[node].setPos(pos)
+            counter += 1
 
     def dijkstra(self, src):
 
