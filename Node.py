@@ -1,8 +1,8 @@
 
 class Node:
-    def __init__(self, key: int, tag: bool = False, weight: int = 0.0, color: str = "white",
+    def __init__(self, id: int, tag: bool = False, weight: int = 0.0, color: str = "white",
                  nodesIn: dict = None, nodesOut: dict = None, position: tuple = None, parent=None):
-        self.key = key
+        self.id = id
         self.tag = tag
         self.weight = weight
         self.color = color
@@ -21,7 +21,7 @@ class Node:
         return self.nodesOut
 
     def getKey(self) -> int:
-        return self.key
+        return self.id
 
     def getTag(self) -> bool:
         return self.tag
@@ -60,9 +60,9 @@ class Node:
         return str(self.__dict__)
 
     def __eq__(self, other) -> bool:
-        return self.key == other.key and self.position == other.position
+        return self.id == other.id and self.position == other.position
 
     def __lt__(self, other):
-        p = (self.weight , self.key)
+        p = (self.weight, self.id)
         h = (other.getWeight(), other.getKey())
         return p < h

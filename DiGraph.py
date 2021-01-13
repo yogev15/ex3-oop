@@ -57,8 +57,7 @@ class DiGraph(GraphInterface):
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
         if self.graphDict.get(node_id):
             return False
-        a = Node(node_id)
-        self.graphDict[node_id] = a
+        self.graphDict[node_id] = Node(node_id, position=pos)
         self.nodeSize += 1
         self.mc += 1
         return True
@@ -97,20 +96,6 @@ class DiGraph(GraphInterface):
 
         return False
 
-    def graph_toString(self):
-        dic = {}
-        nodes = []
-        edges = []
-        for key in self.graphDict.values():
-            nodes.append(key)
-            nodesOut = key.get_nodesOut
-            for dest in nodesOut.keys():
-                temp = {"src": key.key, "weight": nodesOut[dest], "dest": dest}
-                edges.append(temp)
-                dic["Edges"] = edges
-                dic["Nodes"] = nodes
-        return dic
-
     def getNode(self, key):
         if key in self.graphDict:
             return self.graphDict[key]
@@ -120,8 +105,8 @@ class DiGraph(GraphInterface):
         return self.__dict__
 
     def load_from_json(self, json_dict):
-        self.nodeSize = json_dict["nodeSize"]
-        self.edgeSize = json_dict["edgeSize"]
+        self.nodeSize = json_dict["Nodes"]
+        self.edgeSize = json_dict["Edges"]
         self.mc = json_dict["mc"]
         self.graphDict = {k: Node(**v) for (k, v) in json_dict["graphDict"].items()}
 
@@ -136,4 +121,4 @@ class DiGraph(GraphInterface):
         return self.get_all_v() == other.get_all_v()
 
     def __str__(self):
-        return "Graph: vSize is " + self.v_size() + ", eSize is " + self.e_size() + "."
+        return "Graph: vSize is " + str(self.v_size()) + ", eSize is " + str(self.e_size()) + "."
