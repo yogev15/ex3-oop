@@ -1,6 +1,7 @@
+import timeit
 import unittest
 
-from DiGraph import DiGraph
+from src.DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
 
 
@@ -19,6 +20,7 @@ class TestGraphAlgo(unittest.TestCase):
         g_algo = GraphAlgo(graph)
         g_algo.save_to_json("test1")
         g_algo.load_from_json("test1")
+        g_algo.connected_components()
         self.assertEqual(g_algo.graph.v_size(), graph.v_size())
         self.assertEqual(g_algo.graph.e_size(), graph.e_size())
         self.assertEqual(g_algo.get_graph(), graph)
@@ -66,7 +68,7 @@ class TestGraphAlgo(unittest.TestCase):
         graph.add_edge(0, 1, 3)
         g_algo = GraphAlgo(graph)
         ans = g_algo.shortest_path(0, 2)
-        self.assertEqual(ans, (float('int'), []))
+        self.assertEqual(ans, (float('inf'), []))
 
     def test_connected_component(self):
         graph = DiGraph()
@@ -95,3 +97,4 @@ class TestGraphAlgo(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+

@@ -68,13 +68,11 @@ class DiGraph(GraphInterface):
             for key in node.nodesOut:
                 temp = self.graphDict.get(key)
                 temp.nodesIn.pop(node_id)
-                self.mc += 1
                 self.edgeSize -= 1
 
             for key in node.nodesIn:
                 temp = self.graphDict.get(key)
                 temp.nodesOut.pop(node_id)
-                self.mc += 1
                 self.edgeSize -= 1
 
             self.graphDict.pop(node_id)
@@ -103,12 +101,6 @@ class DiGraph(GraphInterface):
 
     def repr_json(self):
         return self.__dict__
-
-    def load_from_json(self, json_dict):
-        self.nodeSize = json_dict["Nodes"]
-        self.edgeSize = json_dict["Edges"]
-        self.mc = json_dict["mc"]
-        self.graphDict = {k: Node(**v) for (k, v) in json_dict["graphDict"].items()}
 
     def __repr__(self):
         return str(self.__dict__)

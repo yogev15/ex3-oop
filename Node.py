@@ -17,9 +17,6 @@ class Node:
         self.position = position
         self.parent = parent
 
-    def getNodesOut(self) -> dict:
-        return self.nodesOut
-
     def getKey(self) -> int:
         return self.id
 

@@ -2,8 +2,7 @@ import math
 import queue
 import random
 from typing import List
-
-from DiGraph import DiGraph
+from src.DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 import json
 import matplotlib.pyplot as plt
@@ -187,12 +186,6 @@ class GraphAlgo(GraphAlgoInterface):
         return myList
 
     def plot_graph(self) -> None:
-        """
-        Plots the graph.
-        If the nodes have a position, the nodes will be placed there.
-        Otherwise, they will be placed in a random but elegant manner (by using generate_locations method).
-        @return: None.
-        """
         XV = []
         YV = []
         graph = self.get_graph()
@@ -289,3 +282,6 @@ class GraphAlgo(GraphAlgoInterface):
                         temp.setTag(True)
                         q.put(temp)
             node.setColor("black")
+
+
+
