@@ -21,3 +21,5 @@ Graph Algorithms methods:
   connection component - returns a list of the vertex connection components
   
   shortest_path - returns a list of the shortest path between two vertexes path
+
+![](https://user-images.githubusercontent.com/74258456/104630513-8078f200-56a3-11eb-8de5-3f12ba87820c.png)
