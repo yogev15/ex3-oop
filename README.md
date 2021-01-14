@@ -16,5 +16,6 @@ Directed weighted graph class methods:
 Graph Algorithms methods:
 
   connection components - returns a list of all connection components of a graph
+  
   connection component - returns a list of the vertex connection components
   shortest_path - returns a list of the shortest path between two vertexes path .
