@@ -17,4 +17,4 @@ Graph Algorithms methods:
 
   connection components - returns a list of all connection components of a graph
   connection component - returns a list of the vertex connection components
-  Finds the shortest path between two vertices by using Dijkstra Algorithm - returns a list of the path.
+  shortest_path - returns a list of the shortest path between two vertexes path .
