@@ -10,17 +10,14 @@ the vertexes implemented by the class Node, every Node has 2 python dictionary a
 
 Directed weighted graph class methods:
 
-  Add\remove a vertex  
-  
-  connect or remove an edge between two vertexes
+  * Add\remove a vertex  
+  * connect or remove an edge between two vertexes
 
 Graph Algorithms methods:
 
-  connection components - returns a list of all connection components of a grap
-  
-  connection component - returns a list of the vertex connection components
-  
-  shortest_path - returns a list of the shortest path between two vertexes path
+  * connection components - returns a list of all connection components of a grap
+  * connection component - returns a list of the vertex connection components
+  * shortest_path - returns a list of the shortest path between two vertexes path
 
 ![](https://user-images.githubusercontent.com/74258456/104630513-8078f200-56a3-11eb-8de5-3f12ba87820c.png)
 
