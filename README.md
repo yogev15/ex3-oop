@@ -1,7 +1,5 @@
 OOP-Ex3-Python
 
-מטלה רביעית ואחרונה בקורס תכנות מונחה עצמים - סמסטר א' תשפ"א דצמבר 2020
-
 about the project:
 
 This project is an implementation of a weighted directed graph in python and compared to different graphs algorithms implemented in Python.
