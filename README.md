@@ -10,8 +10,7 @@ the vertexes implemented by the class Node, every Node has 2 python dictionary a
 
 Directed weighted graph class methods:
 
-  Add\remove a vertex.
-  
+  Add\remove a vertex  
   connect or remove an edge between two vertexes
 
 Graph Algorithms methods:
