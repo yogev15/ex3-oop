@@ -1,7 +1,6 @@
-import timeit
 import unittest
 
-from src.DiGraph import DiGraph
+from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
 
 

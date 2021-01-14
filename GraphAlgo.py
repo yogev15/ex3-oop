@@ -2,20 +2,12 @@ import math
 import queue
 import random
 from typing import List
-from src.DiGraph import DiGraph
+from DiGraph import DiGraph
 from GraphAlgoInterface import GraphAlgoInterface
 import json
 import matplotlib.pyplot as plt
 
 from GraphInterface import GraphInterface
-
-
-class ComplexEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if hasattr(obj, 'repr_json'):
-            return obj.repr_json()
-        else:
-            return json.JSONEncoder.default(self, obj)
 
 
 def reset(graph):
@@ -91,18 +83,6 @@ class GraphAlgo(GraphAlgoInterface):
         except IOError as e:
             print(e)
             return False
-
-    #  def load_from_json(self, file_name: str) -> bool:
-    #    with open(file_name, "r") as f:
-    #        j = json.loads(f.read())
-    #        self.graph = DiGraph()
-    #        self.graph.load_from_json(j)
-    #       return True
-
-    #  def save_to_json(self, file_name: str) -> bool:
-    #    with open(file_name, "w") as f:
-    #        json.dump(self.graph, f, cls=ComplexEncoder)
-    #        return True
 
     def save_to_json(self, file_name: str) -> bool:
         nodes = []
@@ -282,6 +262,3 @@ class GraphAlgo(GraphAlgoInterface):
                         temp.setTag(True)
                         q.put(temp)
             node.setColor("black")
-
-
-
