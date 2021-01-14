@@ -15,4 +15,4 @@ Directed weighted graph class methods:
 Graph Algorithms methods:
   connection components - returns a list of all connection components of a graph
   connection components of a specific vertex - returns a list of the vertex connection components
-  Find the shortest path between two vertices by using Dijkstra Algorithm.
+  Finds the shortest path between two vertices by using Dijkstra Algorithm - returns a list of the path.
