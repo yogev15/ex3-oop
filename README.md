@@ -23,3 +23,6 @@ Graph Algorithms methods:
   shortest_path - returns a list of the shortest path between two vertexes path
 
 ![](https://user-images.githubusercontent.com/74258456/104630513-8078f200-56a3-11eb-8de5-3f12ba87820c.png)
+
+|V| = 48
+|E| = 165
