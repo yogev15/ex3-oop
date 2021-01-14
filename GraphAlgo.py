@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from GraphInterface import GraphInterface
 
 
+# A method reset the variable needed to SCC and shortest path
 def reset(graph):
     nodes = graph.get_all_v()
     for i in nodes.keys():
@@ -20,6 +21,8 @@ def reset(graph):
         node.parent = None
 
 
+# A method that returns a revered graph of the given graph
+# by deleting every edge out of vertex x to Y and connecting the same edge from Y to X
 def reversed_graph(graph):
     nodes = graph.get_all_v()
     neighbours = {}
@@ -37,6 +40,7 @@ def reversed_graph(graph):
     return reverse
 
 
+# This method helps to check the SCC of a single vertex
 def dfs(key: int, graph: DiGraph) -> list:
     keys = []
     listSCC = [key]
@@ -179,7 +183,7 @@ class GraphAlgo(GraphAlgoInterface):
         text = []
         for node in nodes:
             if node[1].getPos() is None:
-                self.__generate_locations()
+                self.__generate_random_locations()
             node_x = float(node[1].getPos().split(',')[0])
             node_y = float(node[1].getPos().split(',')[1])
             if node_x > max_x:
@@ -223,7 +227,7 @@ class GraphAlgo(GraphAlgoInterface):
         plt.ylabel("y")
         plt.show()
 
-    def __generate_locations(self):
+    def __generate_random_locations(self):
         sum = self.get_graph().v_size() + 10
         counter = 1
         graph = self.get_graph()
@@ -235,6 +239,8 @@ class GraphAlgo(GraphAlgoInterface):
             dic = graph.get_all_v()[node].setPos(pos)
             counter += 1
 
+    # an algorithm that helps to check the shortest path from vertex src to every vertex in the graph
+    # by running through the graph and changing the variables of the vertexes
     def dijkstra(self, src):
 
         q = queue.PriorityQueue()
